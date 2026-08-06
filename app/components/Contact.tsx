@@ -88,7 +88,7 @@ export default function Contact() {
               href="mailto:sommyubah12@gmail.com"
               className="text-white/40 hover:text-white transition font-mono text-sm"
             >
-              hello@sommyubah.com
+              sommyubah12@gmail.com
             </a>
           </div>
         </motion.div>
