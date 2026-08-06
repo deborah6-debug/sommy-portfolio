@@ -31,9 +31,9 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-sm border-b border-[#f59e0b]/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         
-        {/* Logo */}
+        {/* Logo - Changed to Sommy Ubah */}
         <Link href="/" className="text-xl font-bold tracking-tight text-[#f59e0b]">
-          sommy.dev
+          Sommy Ubah
         </Link>
 
         {/* Desktop Navigation */}
