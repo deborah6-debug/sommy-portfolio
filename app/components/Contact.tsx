@@ -14,13 +14,10 @@ export default function Contact() {
     setIsSending(true);
     setStatus("Sending...");
 
-    // Get your Template ID from EmailJS
-    const templateId = "your_template_id_here"; // ← Replace this!
-
     emailjs
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        templateId,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           name: form.name,
           email: form.email,
@@ -124,4 +121,4 @@ export default function Contact() {
       </div>
     </section>
   );
-}
+              }
