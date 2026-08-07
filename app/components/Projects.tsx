@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -11,7 +11,7 @@ const projects = [
     description: "A custom birthday surprise website built for a loved one with interactive animations and personalized content.",
     longDescription: "Created an immersive birthday experience with a nostalgic 90s aesthetic. Features include a personalized greeting, interactive animations, and a curated gallery of memories. The site was designed to be a digital love letter that surprises and delights.",
     stack: ["HTML", "CSS", "JavaScript"],
-    image: "/birthday-project.jpeg",  // ← Make sure this is .jpg
+    image: "/birthday-project.jpeg",  // ← Changed .jpg to .jpeg
     link: "https://guess-rosy-one.vercel.app/",
     github: "https://github.com/deborah6-debug/birthday-",
     features: [
@@ -28,7 +28,7 @@ const projects = [
     description: "A wedding invitation and RSVP management system with Google Sheets backend for guest data collection.",
     longDescription: "Built a complete wedding RSVP system for Chizoba & Onome's wedding. Guests can view event details, confirm attendance, and submit dietary preferences. Data is automatically collected in Google Sheets/Excel for easy guest list management and tracking.",
     stack: ["HTML", "CSS", "JavaScript", "Google Sheets API"],
-    image: "/wedding-project.jpeg",  // ← Changed to .jpeg
+    image: "/wedding-project.jpeg",  // ← Already correct
     link: "https://chizobaonome-omega.vercel.app/",
     github: "https://github.com/deborah6-debug/chizobaonome",
     features: [
