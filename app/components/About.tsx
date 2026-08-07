@@ -5,19 +5,19 @@ import { motion } from "framer-motion";
 const stats = [
   { 
     label: "Projects shipped", 
-    value: "00"  // ← Change this
+    value: "05"  
   },
   { 
     label: "APIs built & deployed", 
-    value: "00"  // ← Change this
+    value: "03"  
   },
   { 
     label: "Years of experience", 
-    value: "0.0"  // ← Change this
+    value: "2.5"  
   },
   { 
     label: "Uptime on live projects", 
-    value: "0.0%"  // ← Change this
+    value: "02"  
   },
 ];
 
