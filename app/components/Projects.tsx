@@ -1,7 +1,8 @@
-"use client";
+  "use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 
 const projects = [
   {
@@ -10,7 +11,7 @@ const projects = [
     description: "A custom birthday surprise website built for a loved one with interactive animations and personalized content.",
     longDescription: "Created an immersive birthday experience with a nostalgic 90s aesthetic. Features include a personalized greeting, interactive animations, and a curated gallery of memories. The site was designed to be a digital love letter that surprises and delights.",
     stack: ["HTML", "CSS", "JavaScript"],
-    image: "/birthday-project.jpeg",
+    image: "/birthday-project.jpeg",  // ← Make sure this is .jpg
     link: "https://guess-rosy-one.vercel.app/",
     github: "https://github.com/deborah6-debug/birthday-",
     features: [
@@ -27,7 +28,7 @@ const projects = [
     description: "A wedding invitation and RSVP management system with Google Sheets backend for guest data collection.",
     longDescription: "Built a complete wedding RSVP system for Chizoba & Onome's wedding. Guests can view event details, confirm attendance, and submit dietary preferences. Data is automatically collected in Google Sheets/Excel for easy guest list management and tracking.",
     stack: ["HTML", "CSS", "JavaScript", "Google Sheets API"],
-    image: "/wedding-project.jpeg",
+    image: "/wedding-project.jpeg",  // ← Changed to .jpeg
     link: "https://chizobaonome-omega.vercel.app/",
     github: "https://github.com/deborah6-debug/chizobaonome",
     features: [
@@ -59,6 +60,12 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
+
+  const handleImageError = (projectId: number) => {
+    setImageErrors(prev => ({ ...prev, [projectId]: true }));
+  };
+
   return (
     <section id="projects" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -83,25 +90,32 @@ export default function Projects() {
                 className="grid md:grid-cols-2 gap-8 items-start bg-white/5 border border-white/5 rounded-2xl p-6 hover:border-[#f59e0b]/20 transition-all duration-300"
               >
                 {/* Project Image */}
-                <div className="aspect-video bg-gradient-to-br from-[#1a0e0a] to-[#0a0a0a] border border-white/10 rounded-xl flex items-center justify-center text-white/20 text-sm overflow-hidden">
-                  {project.image && project.image !== "/coming-soon.jpg" ? (
-                    <div className="w-full h-full bg-gradient-to-br from-[#2a1a0a] to-[#1a0e0a] flex items-center justify-center">
-                      <span className="text-white/20 text-sm">[ Screenshot ]</span>
+                <div className="aspect-video bg-gradient-to-br from-[#1a0e0a] to-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden">
+                  {project.title === "Coming Soon" ? (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-center">
+                        <svg className="w-16 h-16 mx-auto mb-3 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-white/20 text-sm">Coming Soon</span>
+                      </div>
                     </div>
-                  ) : project.title === "Coming Soon" ? (
-                    <div className="text-center">
-                      <svg className="w-16 h-16 mx-auto mb-3 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-white/20 text-sm">Coming Soon</span>
+                  ) : imageErrors[project.id] ? (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#2a1a0a] to-[#1a0e0a]">
+                      <div className="text-center">
+                        <svg className="w-12 h-12 mx-auto mb-2 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-white/20 text-sm">📸 Screenshot coming soon</span>
+                      </div>
                     </div>
                   ) : (
-                    <div className="text-center">
-                      <svg className="w-12 h-12 mx-auto mb-2 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span>[ screenshot ]</span>
-                    </div>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                      onError={() => handleImageError(project.id)}
+                    />
                   )}
                 </div>
 
@@ -115,7 +129,6 @@ export default function Projects() {
                     {project.description}
                   </p>
 
-                  {/* Features */}
                   <div className="mt-4 space-y-1">
                     {project.features.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-sm text-white/40">
@@ -125,7 +138,6 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  {/* Tech Stack */}
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.stack.map((tech) => (
                       <span
@@ -137,7 +149,6 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  {/* Links */}
                   <div className="mt-5 flex gap-4">
                     {project.link !== "#" ? (
                       <>
