@@ -7,23 +7,40 @@ import emailjs from "emailjs-com";
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSending(true);
     setStatus("Sending...");
+
+    // Get your Template ID from EmailJS
+    const templateId = "your_template_id_here"; // ← Replace this!
 
     emailjs
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        form,
+        templateId,
+        {
+          name: form.name,
+          email: form.email,
+          title: "Portfolio Contact",
+          message: form.message,
+        },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       )
       .then(() => {
-        setStatus("✓ Message sent!");
+        setStatus("✅ Message sent successfully!");
         setForm({ name: "", email: "", message: "" });
+        setIsSending(false);
+        setTimeout(() => setStatus(""), 5000);
       })
-      .catch(() => setStatus("✗ Failed. Try again."));
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        setStatus("❌ Failed to send. Please try again.");
+        setIsSending(false);
+        setTimeout(() => setStatus(""), 5000);
+      });
   };
 
   return (
@@ -35,7 +52,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-sm font-mono text-white/30 uppercase tracking-widest mb-6">
+          <h2 className="text-sm font-mono text-[#f59e0b]/50 uppercase tracking-widest mb-6">
             Contact
           </h2>
 
@@ -50,43 +67,55 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="mt-10 space-y-5 max-w-xl">
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Your name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-5 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-5 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#f59e0b]/50 transition"
               required
+              disabled={isSending}
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Your email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-5 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-5 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#f59e0b]/50 transition"
               required
+              disabled={isSending}
             />
             <textarea
-              placeholder="Message"
+              placeholder="Your message..."
               rows={5}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-5 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition resize-none"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-5 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#f59e0b]/50 transition resize-none"
               required
+              disabled={isSending}
             />
             <button
               type="submit"
-              className="px-8 py-3 bg-white text-black rounded-lg font-medium hover:bg-white/90 transition"
+              disabled={isSending}
+              className={`px-8 py-3 bg-gradient-to-r from-[#f59e0b] to-[#fb923c] text-white rounded-lg font-medium hover:from-[#d97706] hover:to-[#f59e0b] transition shadow-lg shadow-orange-500/25 ${
+                isSending ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Send message
+              {isSending ? "Sending..." : "Send message"}
             </button>
             {status && (
-              <p className="text-sm text-white/40 mt-2">{status}</p>
+              <p className={`text-sm mt-2 ${
+                status.includes("✅") ? "text-green-400" : 
+                status.includes("❌") ? "text-red-400" : 
+                "text-white/40"
+              }`}>
+                {status}
+              </p>
             )}
           </form>
 
           <div className="mt-6">
             <a
               href="mailto:sommyubah12@gmail.com"
-              className="text-white/40 hover:text-white transition font-mono text-sm"
+              className="text-white/40 hover:text-[#f59e0b] transition font-mono text-sm"
             >
               sommyubah12@gmail.com
             </a>
