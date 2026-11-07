@@ -43,7 +43,28 @@ const projects = [
     ]
   },
   {
-    id: 3,
+  id: 3,
+  title: "Zuri Styles E-Commerce",
+  description: "A modern, responsive e-commerce platform for authentic Nigerian fashion, featuring dynamic cart management and a polished user experience.",
+  longDescription: "Built a comprehensive frontend e-commerce application for a fictional Nigerian fashion brand, Zuri Styles. The platform features a complete shopping flow, including dynamic product filtering, a slide-out mobile navigation menu, a persistent shopping cart and wishlist using React Context, and a secure simulated checkout process. The UI is meticulously crafted with Tailwind CSS to ensure a premium, responsive experience across all devices.",
+  stack: ["React", "Vite", "Tailwind CSS", "React Router", "Context API"],
+  image: "/zuri-styles-project.jpeg", 
+  link: "https://ecommerce-mu-six-66.vercel.app/"
+  github: "https://github.com/deborah6-debug/ECOMMERCE", 
+  features: [
+    "Modern, mobile-first design with Tailwind CSS",
+    "Complex global state management (Cart, Wishlist, Auth) using React Context",
+    "Dynamic routing with React Router (Shop, Product Details, Cart, Checkout)",
+    "Persistent data using localStorage for cart and user sessions",
+    "Slide-out mobile navigation drawer",
+    "Product filtering and search functionality",
+    "Interactive UI with toast notifications and loading states",
+    "Colour theme: Zuri Orange & White"
+  ]
+},
+  
+  {
+    id: 4,
     title: "Coming Soon",
     description: "More projects are currently in development. Stay tuned!",
     longDescription: "I'm constantly building and learning. New projects will be added here as they're completed.",
